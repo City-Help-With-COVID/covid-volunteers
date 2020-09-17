@@ -31,17 +31,17 @@ ALL_NUMBER_OF_VOLUNTEERS = [ '1-10', '10-50', '50-100', '100+' ]
 ALL_LEVELS_OF_URGENCY = [ 'Extremely urgent', 'Very urgent', 'Moderately urgent', 'Somewhat urgent', 'Not urgent' ]
 ALL_LEVELS_OF_EXPOSURE = [ 'I', 'II', 'III', 'IV', 'V' ]
 REMOTE_LOCATION = 'Remote'
-CITY_NAME = 'Athens'
-STATE_NAME = 'Georgia'
+CITY_NAME = 'City'
+STATE_NAME = 'State'
 ALL_LOCATIONS = [ "#{CITY_NAME} (on site)", "Other #{STATE_NAME} locales (on site)", REMOTE_LOCATION ]
 DOMAIN_NAME = 'ThisCityHelpWithCovid.com'
 AFFILIATE_EMAIL = 'info@thiscityhelpwithcovid.com'
-PRIMARY_COLOR = 'red'
+PRIMARY_COLOR = 'indigo'
 PROJECTS_SUBHEADER = "This is a #{CITY_NAME}-wide partnership platform, where #{CITY_NAME} residents can volunteer (in-person or remotely) and local non-profits and government can post volunteer needs. Let us unite and fight the pandemic together!"
-INSTAGRAM_LINK = 'https://www.instagram.com/athensmutualaid.net_updates/?hl=en'
-FACEBOOK_LINK = 'https://www.facebook.com/Athens-help-With-Covid-19-103765018035330'
-TWITTER_LINK = 'https://twitter.com/AthGaHelpwCovid'
-NEWSLETTER_LINK = 'http://eepurl.com/g3hEa5'
+INSTAGRAM_LINK = ''
+FACEBOOK_LINK = ''
+TWITTER_LINK = ''
+NEWSLETTER_LINK = ''
 ALL_PROJECT_TYPES = [
   'Contact tracing',
   'Reduce spread',
