@@ -10,7 +10,7 @@
         </h3>
         <% if current_user && @project.user == current_user %>
           <!-- <p class="mt-1 text-sm leading-5 text-gray-500">
-            Use <%= link_to "HWC's Discord", "https://discord.gg/875AhXS", class: "text-red-500", target: "_blank" %> to manage your project communication.
+            Use <%= link_to "HWC's Discord", "https://discord.gg/875AhXS", class: "text-" + @primary_color + "-500", target: "_blank" %> to manage your project communication.
           </p> -->
         <% end %>
       </div>
@@ -183,7 +183,7 @@
       <% if !@project.visible %>
         <dl>
           <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 sm:pt-5 sm:pb-2 mb-3">
-            <p class="text-<%=PRIMARY_COLOR %>-500">
+            <p class="text-red-500">
               --- REMOVED POSTING ---
             </p>
           </div>
@@ -251,12 +251,23 @@
           </dd>
         </div>
 
+        <% if @project.organization_mission %>
+          <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 sm:pt-5 sm:pb-2">
+            <dt class="text-sm leading-5 font-medium text-gray-500">
+              Mission Statement
+            </dt>
+            <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
+              <%= simple_format @project.organization_mission, class: 'mb-3' %>
+            </dd>
+          </div>
+        <% end %>
+
         <!-- <div class="mt-8 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:pt-5 sm:pb-2">
           <dt class="text-sm leading-5 font-medium text-gray-500">
             Who is already working on this
           </dt>
           <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
-            <%= simple_format Rinku.auto_link(sanitize(@project.participants), :all, 'class="text-red-500"'), class: 'mb-3' %>
+            <%= simple_format Rinku.auto_link(sanitize(@project.participants), :all, 'class="text-indigo-500"'), class: 'mb-3' %>
           </dd>
         </div> -->
         <% if @project.progress.present? %>
@@ -265,7 +276,7 @@
               How far along it is
             </dt>
             <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
-              <%= simple_format Rinku.auto_link(sanitize(@project.progress), :all, 'class="text-red-500"'), class: 'mb-3' %>
+              <%= simple_format Rinku.auto_link(sanitize(@project.progress), :all, 'class="text-indigo-500"'), class: 'mb-3' %>
             </dd>
           </div> -->
         <% end %>
@@ -275,113 +286,151 @@
               Demo, mockups, or documentation
             </dt>
             <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
-              <%= simple_format Rinku.auto_link(sanitize(@project.docs_and_demo), :all, 'class="text-red-500"'), class: 'mb-3' %>
+              <%= simple_format Rinku.auto_link(sanitize(@project.docs_and_demo), :all, 'class="text-indigo-500"'), class: 'mb-3' %>
             </dd>
           </div> -->
         <% end %>
-        <div class="mt-8 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:pt-5 sm:pb-2">
+        <div class="mt-8 sm:mt-0 sm:grid md:grid-cols-3 sm:grid-cols-2 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:pt-5 sm:pb-2">
           <!-- <dt class="text-sm leading-5 font-medium text-gray-500">
             Tasks that need to get done
           </dt>
-          <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
+          <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 ">
             <%= simple_format @project.looking_for, class: 'mb-3' %>
           </dd>
         </div> -->
         <% if @project.start_date.present? %>
-          <div class="mt-8 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5">
+          <div class="mt-8 sm:mt-0 sm:grid sm:grid-cols-2 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5">
             <dt class="text-sm leading-5 font-medium text-gray-500">
               Start Date
             </dt>
-            <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
+            <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 ">
               <%= @project.start_date %>
             </dd>
           </div>
         <% end %>
-        <% if @project.end_date.present? %>
-          <div class="mt-8 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5">
+        <% if @project.end_date_recurring %>
+          <div class="mt-8 sm:mt-0 sm:grid sm:grid-cols-2 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5">
             <dt class="text-sm leading-5 font-medium text-gray-500">
               End Date
             </dt>
-            <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
+            <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 ">
+              Recurring
+            </dd>
+          </div>
+        <% elsif @project.end_date.present? %>
+          <div class="mt-8 sm:mt-0 sm:grid sm:grid-cols-2 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5">
+            <dt class="text-sm leading-5 font-medium text-gray-500">
+              End Date
+            </dt>
+            <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 ">
               <%= @project.end_date %>
             </dd>
           </div>
         <% end %>
         <% if @project.number_of_volunteers.present? %>
-          <div class="mt-8 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5">
+          <div class="mt-8 sm:mt-0 sm:grid sm:grid-cols-2 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5">
             <dt class="text-sm leading-5 font-medium text-gray-500">
               Number of volunteers
             </dt>
-            <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
+            <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 ">
               <%= @project.number_of_volunteers %>
             </dd>
           </div>
         <% end %>
         <% if !@project.background_screening_required.nil? %>
-          <div class="mt-8 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5">
+          <div class="mt-8 sm:mt-0 sm:grid sm:grid-cols-2 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5">
             <dt class="text-sm leading-5 font-medium text-gray-500">
               Background screening required?
             </dt>
-            <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
+            <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 ">
               <%= @project.background_screening_required ? "Yes" : "No" %>
             </dd>
           </div>
         <% end %>
         <% if @project.level_of_exposure.present? %>
-          <div class="mt-8 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5">
+          <div class="mt-8 sm:mt-0 sm:grid sm:grid-cols-2 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5">
             <dt class="text-sm leading-5 font-medium text-gray-500">
               Level of Exposure
+              <button type="button" class="text-sm text-gray-500 hover:text-gray-800 hover:underline" id='what_is_this'>What is this?</button>
+
+              <!-- Modal that explains levels of exposure-->
+              <div id="modal" class="modal">
+                  <!-- Modal content -->
+                  <div class="modal-content border-b border-gray-200 sm:rounded-lg">
+                      <div class="flex justify-between items-center mb-4">
+                          <h3 class="text-lg leading-6 font-medium text-gray-900">
+                              Levels of Exposure</h3>
+                          <span class="close">&times;</span>
+                      </div>
+                      <p class="mb-4">These are the different levels of exposure associated with each volunteer opportunity listed on this website. Please read the guidelines carefully and take them into consideration when choosing to volunteer.</p>
+                      <ul>
+                        <li>Level I: No risk / from home</li>
+                        <li>Level II: Low risk and minimal human contact</li>
+                        <li>Level III: Potential for human contact</li>
+                        <li>Level IV: Non-clinical but in hospital or office setting</li>
+                        <li>Level V: Clinical and direct human contact</li>
+                      </ul>
+                      <p class="my-4"><%= link_to "More information",  risks_url, class: 'text-indigo-500 hover:underline'%></p>
+                      <!--
+                      <p class="mb-4">To protect our volunteers and others you work with during this pandemic, we ask all our volunteers who’ve marked their current location as “on-site in <%= CITY_NAME %>” to use Blank Slate to receive training on City of <%= CITY_NAME %>’s latest volunteer safety guidelines, which will only take 2-3 minutes. After that, depending on what you need to learn for your volunteer work, Blank Slate will send one nudge per week to make sure these updates stay front of mind. Your training status will be indicated on your volunteer profile with a green check mark so that our local partners can recruit with peace of mind.</p>
+                      <p class="mb-4">Please use <%= link_to "this link", "https://app.blankslatetechnologies.com/app/index.html#/signUp?app=covid19", class: 'text-indigo-500', target: :_blank %> to sign up for a free Blank Slate account using the same email address you used for NewHavenHelpWithCovid.com.</p>
+                      <p class="mb-4">If you have any questions or encounter any issues, please contact <%= mail_to HWC_EMAIL, nil, target: '_blank', class: 'text-indigo-500' %>.</p>
+                      <p>Your privacy is of the utmost importance to NewHavenHelpWithCovid, and our relationship with Blank Slate is predicated on maintaining that privacy. Please be assured that your information belongs to you and will never be sold to third parties.</p> -->
+                  </div>
+              </div>
+              <!-- End modal -->
+
             </dt>
-            <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
+            <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 ">
               Level <%= @project.level_of_exposure %>
             </dd>
           </div>
         <% end %>
-        <div class="mt-8 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5">
+        <div class="mt-8 sm:mt-0 sm:grid sm:grid-cols-2 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5">
           <dt class="text-sm leading-5 font-medium text-gray-500">
             Location
           </dt>
-          <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
+          <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 ">
             <%= @project.location %>
           </dd>
         </div>
         <% if @project.compensation.present? %>
-          <div class="mt-8 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5">
+          <div class="mt-8 sm:mt-0 sm:grid sm:grid-cols-2 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5">
             <dt class="text-sm leading-5 font-medium text-gray-500">
               Compensation
             </dt>
-            <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
+            <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 ">
               <%= @project.compensation %>
             </dd>
           </div>
         <% end %>
         <% if @project.contact.present? %>
-          <div class="mt-8 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:pt-5 sm:pb-2">
+          <div class="mt-8 sm:mt-0 sm:grid sm:grid-cols-2 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:pt-5 sm:pb-2">
             <dt class="text-sm leading-5 font-medium text-gray-500">
               How to get in touch
             </dt>
-            <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
-              <%= Rinku.auto_link(sanitize(@project.contact), :all, 'class="text-red-500"').html_safe %>
+            <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 ">
+              <%= Rinku.auto_link(sanitize(@project.contact), :all, 'class="text-" + @primary_color + "-500"').html_safe %>
             </dd>
           </div>
         <% end %>
         <% if @project.skill_list.present? %>
-          <div class="mt-8 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5">
+          <div class="mt-8 sm:mt-0 sm:grid sm:grid-cols-2 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5">
             <dt class="text-sm leading-5 font-medium text-gray-500">
               Skills needed
             </dt>
-            <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2 flex content-center flex-wrap space-y-bottom-2 -mb-2 space-x-right-2">
+            <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0  flex content-center flex-wrap space-y-bottom-2 -mb-2 space-x-right-2">
               <%= skill_badges @project.skill_list, color: 'blue', model: 'projects', filter_by: 'skills' %>
             </dd>
           </div>
         <% end %>
 
         <% if @project.project_type_list.present? %>
-          <div class="mt-8 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5">
+          <div class="mt-8 sm:mt-0 sm:grid sm:grid-cols-2 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5">
             <dt class="text-sm leading-5 font-medium text-gray-500">
               Project type
             </dt>
-            <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2 flex content-center flex-wrap space-y-bottom-2 -mb-2 space-x-right-2">
+            <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0  flex content-center flex-wrap space-y-bottom-2 -mb-2 space-x-right-2">
               <%= skill_badges @project.project_type_list, model: 'projects', filter_by: 'project_types' %>
             </dd>
           </div>
@@ -414,7 +463,7 @@
       </h2>
       <p class="mt-8 text-center text-sm leading-5 text-gray-600 max-w">
         If you believe this is a mistake, please contact the project owner or email us
-        at <a href="mailto:<%=AFFILIATE_EMAIL %>>" class="text-red-500"><%=AFFILIATE_EMAIL %></a>.
+        at <%= mail_to HWC_EMAIL, nil, target: '_blank', class: 'text-indigo-500' %>.
       </p>
     </div>
   </div>
