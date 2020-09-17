@@ -39,100 +39,28 @@
       <div class="align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200">
         <table class="min-w-full">
           <tbody>
-            <% striped_classes_cycle = [ "bg-white", "bg-gray-50" ] %>
-            <tr>
-              <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500 text-center bg-<%=PRIMARY_COLOR %>-700">
-              </td>
-              <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 font-medium text-white text-center bg-<%=PRIMARY_COLOR %>-700">
-                Management Team
-              </td>
-              <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500 text-center bg-<%=PRIMARY_COLOR %>-700">
-              </td>
-            </tr>
-            <tr class="<%= cycle striped_classes_cycle %>">
-              <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 font-medium text-gray-900 text-center">
-                Camden Rogers
-              </td>
-              <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500 text-center">
-                Platform Manager, Lead Web Developer
-              </td>
-              <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500 text-center">
-                <%= mail_to 'camden@athenshelpwithcovid.com', nil, target: '_blank', class: 'text-' + @primary_color + '-500' %>
-              </td>
-            </tr>
-            <tr>
-              <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500 text-center bg-<%=PRIMARY_COLOR %>-700">
-
-              </td>
-              <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 font-medium text-white text-center bg-<%=PRIMARY_COLOR %>-700">
-                Web Development Team
-              </td>
-              <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500 text-center bg-<%=PRIMARY_COLOR %>-700">
-
-              </td>
-            </tr>
-            <tr class="<%= cycle striped_classes_cycle %>">
-              <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 font-medium text-gray-900 text-center">
-                Brandon Wischmeier
-              </td>
-              <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500 text-center">
-                Deputy Developer
-              </td>
-              <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500 text-center">
-              <%= mail_to 'brandonwischmeier@gmail.com', nil, target: '_blank', class: 'text-' + @primary_color + '-500' %>
-              </td>
-            </tr>
-            <tr class="<%= cycle striped_classes_cycle %>">
-              <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 font-medium text-gray-900 text-center">
-                Clayton Seals
-              </td>
-              <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500 text-center">
-                Deputy Developer
-              </td>
-              <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500 text-center">
-              <%= mail_to 'cas76700@uga.edu', nil, target: '_blank', class: 'text-' + @primary_color + '-500' %>
-              </td>
-            </tr>
-            <tr>
-              <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500 text-center bg-<%=PRIMARY_COLOR %>-700">
-              </td>
-              <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 font-medium text-white text-center bg-<%=PRIMARY_COLOR %>-700">
-                Communications Team
-              </td>
-              <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500 text-center bg-<%=PRIMARY_COLOR %>-700">
-              </td>
-            </tr>
-            <tr class="<%= cycle striped_classes_cycle %>">
-              <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 font-medium text-gray-900 text-center">
-                Sofi Rice
-              </td>
-              <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500 text-center">
-                Communications Lead
-              </td>
-              <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500 text-center">
-                <%= mail_to 'sofi.rice97@gmail.com', nil, target: '_blank', class: 'text-' + @primary_color + '-500' %>
-              </td>
-            </tr>
-            <tr>
-              <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500 text-center bg-<%=PRIMARY_COLOR %>-700">
-              </td>
-              <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 font-medium text-white text-center bg-<%=PRIMARY_COLOR %>-700">
-                Community Support Team
-              </td>
-              <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500 text-center bg-<%=PRIMARY_COLOR %>-700">
-              </td>
-            </tr>
-            <tr class="<%= cycle striped_classes_cycle %>">
-              <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 font-medium text-gray-900 text-center">
-                Alden DiCamillo
-              </td>
-              <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500 text-center">
-                Community Partnership Manager
-              </td>
-              <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500 text-center">
-                <%= mail_to 'annemarie.dicamillo@gmail.com', nil, target: '_blank', class: 'text-' + @primary_color + '-500' %>
-              </td>
-            </tr>
+          <% striped_classes_cycle = [ "bg-white", "bg-gray-50" ] %>
+          <% DEVS.each do |group, devs| %>
+            <% if !group.empty? %>
+              <tr class="<%= cycle striped_classes_cycle %>">
+                <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 font-medium text-white text-center bg-<%= PRIMARY_COLOR %>-500">
+                  <%= html_escape group %>
+                </td>
+                <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500 text-center bg-<%= PRIMARY_COLOR %>-500">
+                </td>
+              </tr>
+            <% end %>
+            <% devs.each do |name, role| %>
+              <tr class="<%= cycle striped_classes_cycle %>">
+                <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 font-medium text-gray-900 text-center">
+                  <%= html_escape name %>
+                </td>
+                <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500 text-center">
+                  <%= html_escape role %>
+                </td>
+              </tr>
+            <% end %>
+          <% end %>
           </tbody>
         </table>
       </div>
