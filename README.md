@@ -54,6 +54,11 @@ gem install bundler
 gem install rails
 rbenv rehash
 ```
+### For macOS (if error)
+- If there is an error that is saying something along the lines of make sure the xcode command line tools need to be installed,
+go to https://developer.apple.com/download/more/?=command%20line%20tools and download the latest tools to your machine.
+- Then make sure that the XCode app is installed on your local machine and make sure that your macOS is up to date.
+- Once the tools and app are installed and you have confirmed that your operating system is up to date, you should be able to run 'bundle install' then 'rails server' 
 
 ### Postgres
 
